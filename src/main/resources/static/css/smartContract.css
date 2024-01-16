@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #fff;
+  --secondary-color: #02a793;
+  --ternary-color: #f36e21;
+  --red-color: #e21818;
+  --padding-zero: 1rem;
+  --padding-one: 2rem;
+  --padding-two: 4rem;
+  --padding-three: 6rem;
+  --box-shadow-light: 0.5px 0.5px 1px 0.5px rgba(0, 0, 0, 0.5);
+  --border-radius: 5px;
+  --font-primary: "Poppins", sans-serif;
+  --button-color: #f9f5eb;
+}
+
+body {
+  background: var(--primary-color);
+  font-family: var(--font-primary);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "a b";
+}
+
+label {
+  font-size: 14px;
+}
+
+img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+}
+
+.sidebarMenuContainer {
+  display: none;
+}
+
+.sidebarMenuContainer {
+  background: #971c25;
+  grid-area: a;
+  z-index: 10;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  /* padding: 2rem; */
+  width: 130%;
+}
+.companyLogo {
+  padding: var(--padding-zero);
+  display: grid;
+  justify-items: center;
+}
+.companyLogo figure {
+  height: 2.5rem;
+  align-self: center;
+}
+
+.dashboardContainer {
+  grid-area: b;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.agreement {
+  display: flex;
+  flex-direction: column;
+  /* padding: 1rem; */
+  margin-top: 8rem;
+}
+
+.agreement button {
+  background: antiquewhite;
+  color: black;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* form */
+
+.form-container {
+  display: none;
+}
+
+.active-form {
+  display: block;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form {
+  /* max-width: 400px; */
+  /* margin: 0 auto; */
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+/* form */
+
+.form-heading {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  background: #971c25;
+  width: 80rem;
+  text-align: center;
+  padding: 10px;
+}
+
+.form-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -50%);
+  width: 70%;
+}
+
+.forminputcontainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 2rem;
+}
+
+.inputcontainer {
+  display: grid;
+  row-gap: 1rem;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* padding: 1rem; */
+  column-gap: 1rem;
+}
+ 
+.buttons button {
+  display: grid;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  background-color: white;
+  border: 1px solid #971c25;
+  color: black;
+  border-radius: 5px;
+  font-weight: 700;
+  color: #971c25;
+}

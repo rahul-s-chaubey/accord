@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Smart Contract</title>
+
+<link rel="stylesheet" th:href="@{css/smartContract.css}" />
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+	integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+
+
+<style>
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+	--primary-color: #fff;
+	--secondary-color: #02a793;
+	--ternary-color: #f36e21;
+	--red-color: #e21818;
+	--padding-zero: 1rem;
+	--padding-one: 2rem;
+	--padding-two: 4rem;
+	--padding-three: 6rem;
+	--box-shadow-light: 0.5px 0.5px 1px 0.5px rgba(0, 0, 0, 0.5);
+	--border-radius: 5px;
+	--font-primary: "Poppins", sans-serif;
+	--button-color: #f9f5eb;
+}
+
+body {
+	background: var(--primary-color);
+	font-family: var(--font-primary);
+	display: grid;
+	grid-template-columns: auto 1fr;
+	grid-template-areas: "a b";
+}
+
+label {
+	font-size: 14px;
+}
+
+img {
+	width: 100%;
+	height: 120%;
+	object-fit: cover;
+}
+
+.sidebarMenuContainer {
+	display: none;
+}
+
+.sidebarMenuContainer {
+	background: #971c25;
+	grid-area: a;
+	z-index: 10;
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
+	/* padding: 2rem; */
+	width: 130%;
+}
+
+.companyLogo {
+	padding: var(--padding-zero);
+	display: grid;
+	justify-items: center;
+}
+
+.companyLogo figure {
+	height: 2.5rem;
+	align-self: center;
+}
+
+.dashboardContainer {
+	grid-area: b;
+	height: 100vh;
+	display: grid;
+	grid-template-rows: auto 1fr;
+}
+
+.agreement {
+	display: flex;
+	flex-direction: column;
+	/* padding: 1rem; */
+	margin-top: 8rem;
+}
+
+.agreement button {
+	background: antiquewhite;
+	color: black;
+	font-weight: 700;
+	font-size: 1rem;
+}
+
+/* form */
+.form-container {
+	display: none;
+}
+
+.active-form {
+	display: block;
+}
+
+button {
+	display: block;
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #555;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+form {
+	/* max-width: 400px; */
+	/* margin: 0 auto; */
+	
+}
+
+input, textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+}
+
+/* form */
+.form-heading {
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	transform: translate(-40%, -50%);
+	background: #971c25;
+	width: 80rem;
+	text-align: center;
+	padding: 10px;
+}
+
+.form-content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-40%, -50%);
+	width: 70%;
+}
+
+.forminputcontainer {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 2rem;
+}
+
+.inputcontainer {
+	display: grid;
+	row-gap: 1rem;
+}
+
+.buttons {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	/* padding: 1rem; */
+	column-gap: 1rem;
+}
+
+.buttons button {
+	display: grid;
+	padding: 0.75rem;
+	font-size: 1.2rem;
+	background-color: white;
+	border: 1px solid #971c25;
+	color: black;
+	border-radius: 5px;
+	font-weight: 700;
+	color: #971c25;
+}
+
+.inputcontainertext label {
+	font-size: large;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+		sans-serif;
+}
+
+.inputcontainertext input {
+	padding: 10px;
+	border: 1px solid #273c75;
+	border-radius: 5px;
+}
+
+
+.inputcontainertext{
+display: grid;
+    row-gap: 10px;
+}
+
+
+
+</style>
+
+
+</head>
+<body>
+
+
+	<aside class="sidebarMenuContainer">
+		<nav class="companyLogo">
+			<figure>
+				<img
+					src="data:image/png;base64,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"
+					alt="company-logo" />
+			</figure>
+		</nav>
+
+		<article class="agreement">
+
+			<button onclick="showForm('form1')">Rent Agreement</button>
+			<button onclick="showForm('form2')">Home Loan</button>
+			<button onclick="showForm('form3')">Car Loan</button>
+			<button onclick="showForm('form4')">Personal Loan</button>
+			<button onclick="showForm('form5')">Tri-party Agreement</button>
+			<button onclick="showForm('form6')">Escrow Agreement</button>
+
+		</article>
+
+
+	</aside>
+
+
+
+	<main class="dashboardContainer">
+
+
+		<div id="form1" class="form-container">
+
+			<div class="form-heading">
+				<h2 style="color: white;">Rent Agreement</h2>
+			</div>
+
+			<div class="form-content">
+				<form id="rentform" style="display: grid; row-gap: 3rem;">
+
+					<div class="forminputcontainer">
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Tenant's Name </label> <input type="text"
+									name="borrowername" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Tenant's Address</label> <input type="text"
+									name="borroweraddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Lender's Name</label> <input type="text"
+									name="bankaddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Lender's Address</label> <input type="text"
+									name="agreementry" />
+							</div>
+						</div>
+
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Plot No.</label> <input type="text" name="plotno" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Plot Address</label> <input type="text"
+									name="plotaddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Bank Name</label> <input type="text" name="bankname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Rent Amount</label> <input type="text" name="amount" />
+							</div>
+						</div>
+
+					</div>
+
+					<div class="buttons">
+						<button type="button" onclick="fetchAndOpenPDF('RENT')">View</button>
+						<button type="submit">Submit</button>
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+
+		<div id="form2" class="form-container">
+
+			<div class="form-heading">
+				<h2 style="color: white;">Home Loan</h2>
+			</div>
+
+			<div class="form-content">
+				<form id="homeloan" class="homeloan"
+					style="display: grid; row-gap: 3rem;">
+
+					<div class="forminputcontainer">
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Borrower's Name</label> <input type="text"
+									name="borrowername" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Borrower's Address</label> <input type="text"
+									name="borroweraddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Bank Address</label> <input type="text"
+									name="bankaddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Agreementy Name</label> <input type="text"
+									name="agreementyname" />
+							</div>
+						</div>
+
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Plot No.</label> <input type="text" name="plotno" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Plot Address</label> <input type="text"
+									name="plotaddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Bank Name</label> <input type="text" name="bankname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Amount</label> <input type="text" name="amount" />
+							</div>
+						</div>
+
+					</div>
+
+					<div class="buttons">
+						<button type="button" onclick="fetchAndOpenPDF('HOME')">View</button>
+						<button type="submit">Submit</button>
+					</div>
+
+				</form>
+			</div>
+
+
+		</div>
+
+		<div id="form3" class="form-container">
+
+
+			<div class="form-heading">
+				<h2 style="color: white;">Car Loan</h2>
+			</div>
+
+
+
+			<div class="form-content">
+				<form id="carloan" style="display: grid; row-gap: 3rem;">
+
+					<div class="forminputcontainer">
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Car Make</label> <input type="text" name="carmake"
+									id="carmake" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Car Model</label> <input type="text" name="carmodel" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Car Color</label> <input type="text" name="carcolor" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Loan Amount</label> <input type="text" name="loanamt" />
+							</div>
+						</div>
+
+						<div class="inputcontainer">
+
+							<div class="inputcontainertext">
+								<label>Borrower Name</label> <input type="text"
+									name="borrowername" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Borrower Email</label> <input type="text"
+									name="borroweremail" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Lender Name</label> <input type="text" name="lendername" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Lender Email</label> <input type="text"
+									name="lenderemail" />
+							</div>
+						</div>
+
+					</div>
+
+					<div class="buttons">
+						<button type="button" onclick="fetchAndOpenPDF('CARLOAN')">View</button>
+						<button type="submit">Submit</button>
+					</div>
+
+				</form>
+			</div>
+
+
+
+
+		</div>
+
+
+		<div id="form4" class="form-container">
+
+			<div class="form-heading">
+				<h2 style="color: white;">Personal Loan</h2>
+			</div>
+
+
+			<div class="form-content">
+				<form style="display: grid; row-gap: 3rem;" id="personalloan">
+
+					<div class="forminputcontainer">
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Lender</label> <input type="text" name="lendername" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Lender Address</label> <input type="text"
+									name="lenderaddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Borrower</label> <input type="text" name="borrower" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Borrower Address</label> <input type="text"
+									name="borroweraddress" />
+							</div>
+						</div>
+
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Loan Amount</label> <input type="text" name="loanamt" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Debt Amount</label> <input type="text" name="debtamt" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Rate Of Interest</label> <input type="text"
+									name="interest" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Due Days</label> <input type="text" name="duedays" />
+							</div>
+						</div>
+
+					</div>
+
+					<div class="buttons">
+						<button type="button" onclick="fetchAndOpenPDF('PERSONALLOAN')">View</button>
+						<button type="submit">Submit</button>
+					</div>
+
+				</form>
+			</div>
+
+
+
+
+		</div>
+
+
+		<div id="form5" class="form-container">
+
+			<div class="form-heading">
+				<h2 style="color: white;">Tri-Party Agreement</h2>
+			</div>
+
+
+			<div class="form-content">
+				<form id="triparty" style="display: grid; row-gap: 3rem;">
+
+					<div class="forminputcontainer" style="display:grid;grid-template-columns: repeat(3, 1fr);">
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>First Party Name</label> <input type="text"
+									name="firstpartyname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>First Party Guardian</label> <input type="text"
+									name="firstpartyguardian" />
+							</div>
+							<div class="inputcontainertext">
+								<label>First Party Resident</label> <input type="text"
+									name="firstpartyresident" />
+							</div>
+
+						</div>
+
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Second Party Guardian</label> <input type="text"
+									name="secondpartyname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Second Party Resident</label> <input type="text"
+									name="secondpartyguardian" />
+							</div>
+
+							<div class="inputcontainertext">
+								<label>Second Party Name</label> <input type="text"
+									name="secondpartyresident" />
+							</div>
+						</div>
+
+
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Third Party Name</label> <input type="text"
+									name="thirdpartyname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Third Party Guardian</label> <input type="text"
+									name="thirdpartyguardian" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Third Party Resident</label> <input type="text"
+									name="thirdpartyresident" />
+							</div>
+
+						</div>
+
+
+					</div>
+
+					<div class="buttons">
+						<button type="button" onclick="fetchAndOpenPDF('TRIPARTY')">View</button>
+						<button type="submit">Submit</button>
+					</div>
+
+				</form>
+			</div>
+
+
+		</div>
+
+		<div id="form6" class="form-container">
+
+			<div class="form-heading">
+				<h2 style="color: white;">Escrow Agreement</h2>
+			</div>
+
+
+			<div class="form-content">
+				<form id="escrow" style="display: grid; row-gap: 3rem;">
+
+					<div class="forminputcontainer">
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Seller's First Name</label> <input type="text"
+									name="sellerfirstname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Seller's Last Name</label> <input type="text"
+									name="sellerlastname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Purchaser's First Name</label> <input type="text"
+									name="purchaserfirstname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Purchaser's Last Name</label> <input type="text"
+									name="purchaserlastname" />
+							</div>
+						</div>
+
+						<div class="inputcontainer">
+							<div class="inputcontainertext">
+								<label>Property Address</label> <input type="text"
+									name="propertyaddress" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Escrow Agent Name</label> <input type="text"
+									name="agentname" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Escrow Amount</label> <input type="text" name="amount" />
+							</div>
+							<div class="inputcontainertext">
+								<label>Seller Company</label> <input type="text"
+									name="sellercompany" />
+							</div>
+						</div>
+
+					</div>
+
+					<div class="buttons">
+						<button type="button" onclick="fetchAndOpenPDF('ESCROW')">View</button>
+						<button type="submit">Submit</button>
+					</div>
+
+				</form>
+			</div>
+
+
+
+		</div>
+
+	</main>
+
+
+
+
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+	<script>
+    function showForm(formId) {
+  
+      var forms = document.getElementsByClassName('form-container');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].classList.remove('active-form');
+      }
+
+      document.getElementById(formId).classList.add('active-form');
+    }
+    
+    
+    function openPdfInNewTab() {
+     
+      /*   var pdfEndpoint = 'http://localhost:8080/api/generatePdf'; */
+
+      let response = fetch(`http://localhost:8080/api/generatePdf`, {
+		method: "post"
+	});
+     
+        window.open(pdfEndpoint, '_blank');
+    }
+    
+    
+    
+    
+  </script>
+
+
+	<script>
+  
+  
+  function fetchAndOpenPDF(response) {
+	    let gender = document.getElementById("gender");
+	    console.log(gender);
+
+	    let formData;
+	    console.log(response);
+
+	    let url = "";  // Declare and initialize url
+
+	    if (response === "RENT") {
+	        url = 'http://localhost:8080/api/generatePdf';
+	        formData = new FormData(rentform);
+	    } else if (response === "HOME") {
+	        url = 'http://localhost:8080/api/homeloan';
+	        formData = new FormData(homeloan);
+	    } else if (response === "CARLOAN") {
+	        url = 'http://localhost:8080/api/carloanPdf';
+	        formData = new FormData(carloan);
+	    } else if (response === "PERSONALLOAN") {
+	        url = 'http://localhost:8080/api/personalloanPdf';
+	        formData = new FormData(personalloan);
+	    } else if (response === "TRIPARTY") {
+	        url = 'http://localhost:8080/api/tripartyPdf';
+	        formData = new FormData(triparty);
+	    } else if (response === "ESCROW") {
+	        url = 'http://localhost:8080/api/escrowPdf';
+	        formData = new FormData(escrow);
+	    }
+
+	    fetch(url, {
+	        method: 'POST',
+	        body: formData,
+	    })
+	    .then(response => response.blob())
+	    .then(blob => {
+	        const pdfUrl = URL.createObjectURL(blob);
+	        window.open(pdfUrl, '_blank');
+	        URL.revokeObjectURL(pdfUrl);
+	    })
+	    .catch(error => {
+	        console.error('Error fetching PDF:', error);
+	    });
+	}
+
+  
+  
+  
+  </script>
+
+
+
+
+
+</body>
+</html>

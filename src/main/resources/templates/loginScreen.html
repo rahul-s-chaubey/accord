@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login Screen</title>
+</head>
+<body>
+	<form id="formId" >
+		<input type="text" name="userName" placeholder="Enter full name"
+			id="userName" />
+		<button  onclick="openPdfInNewTab()" >submit</button>
+	</form>
+
+
+	<script>
+	
+	 function openPdfInNewTab() {
+	        // Replace '/your-pdf-endpoint' with the actual endpoint that serves your PDF file
+	        var pdfEndpoint = 'http://localhost:8080/api/generatePdf';
+
+	        // Open the PDF in a new tab
+	        window.open(pdfEndpoint, '_blank');
+	    }
+	 
+	
+	</script>
+</body>
+</html>
