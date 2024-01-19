@@ -35,40 +35,33 @@ import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 @CrossOrigin
 @Controller 
 @RequestMapping("/api")
-public class CarLoanController {
+public class CartestController {
 	
 	@Autowired
 	CarloanServiceImpl CarloanServiceImpl;
 
-	@PostMapping("/carloanPdf")
-	public ResponseEntity<?> generatePdf(CarloanDTO carloandto) throws IOException {
+	@PostMapping("/viewcarloanPdf")
+	public ResponseEntity<?> viewcarloanagreement(CarloanDTO carloandto) throws IOException {
 
 		String docxPath = "C:\\test\\carloan.docx";
 		String modifiedDocxPath = "C:\\test\\test1.docx";
 		String pdfPath = "C:\\test\\test.pdf";
 
-		String carmake = carloandto.getCarmake();
-		String carmodel = carloandto.getCarmodel();
-		String carcolor = carloandto.getCarcolor();
-		String loanamt = carloandto.getLoanamt();
-		String borrowername = carloandto.getBorrowername();
-		String borroweremail = carloandto.getBorroweremail(); 
-		String lenderemail = carloandto.getLenderemail();
-		String lenderfirstname = carloandto.getLenderfirstname();
-		String lendermiddlename = carloandto.getLendermiddlename();
-		String lenderlastname = carloandto.getLenderlastname();
+		String carmake = "Audi";
+		String carmodel = "Audi";
+		String carcolor = "white";
+		String loanamt = "100000";
+		String borrowername = "Ankita";
+		String borroweremail = "ankita@gmail.com";
+		String lenderemail = "rahul@gmail";
+		String lenderfirstname = "rahul";
+		String lendermiddlename = "rahul";
+		String lenderlastname = "rahul";
 		
 		String lendername = "fghj";
 
 		
-		
-		
-		
-		String carloan = CarloanServiceImpl.insertintotable(carloandto);
-		
-		
-		
-		
+
 		
 		Resource resource = null;
 

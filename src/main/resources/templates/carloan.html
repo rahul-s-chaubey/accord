@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="assets/css/carloan.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap"
+	rel="stylesheet">
+
+<style>
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: white;
+}
+
+
+nav {
+	background-color: #31572c;
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: auto auto;
+}
+
+nav a, nav img {
+	float: left;
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 5px 12px;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+nav a:hover {
+	/* background-color: #ddd; */
+	/* color: #90A955; */
+	color: #90A955;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+nav li {
+	float: left;
+}
+
+@media screen and (max-width: 600px) {
+	nav a, nav img {
+		float: none;
+		display: block;
+		text-align: left;
+	}
+	nav ul {
+		display: flex;
+		flex-direction: column;
+	}
+	nav li {
+		float: none;
+	}
+}
+
+.maincontainer {
+	display: grid;
+	/* row-gap: 1rem; */
+	padding: 0rem 1rem 0rem 1rem;
+}
+
+.customerdet {
+	background-color: white;
+	display: grid;
+	padding: 0rem 1rem 0rem 1rem;
+	border-radius: 1rem;
+	/* margin-top: -1rem; */
+	/* box-shadow: 10px 10px 15px -10px #31572C; */
+}
+
+.bankdet {
+	background-color: white;
+	padding: 1rem;
+	border-radius: 1rem;
+	/* box-shadow: 10px 10px 15px -10px #31572C; */
+}
+
+.loandet {
+	background-color: white;
+	padding: 1rem;
+	border-radius: 1rem;
+	/* box-shadow: 10px 10px 15px -10px grey; */
+}
+
+form {
+	/* display: grid;
+  row-gap: 1rem; */
+	display: flex;
+	flex-direction: column;
+	row-gap: 1.5rem;
+}
+
+.buttoncontainer {
+	padding: 1rem;
+	background-color: white;
+	border-radius: 10px;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 10rem;
+}
+
+.buttoncontainer button {
+	padding: 0.5rem;
+	background: white;
+	border: 2px solid #4F772D;
+	font-size: 1rem;
+	font-weight: 600;
+	border-radius: 10px;
+	color: #31572C;
+}
+
+.inputcontainer {
+	display: grid;
+	grid-template-columns: 8rem 1fr;
+	/* grid-template-columns: repeat(2,1fr); */
+}
+
+.inputcontainer label {
+	color: #31572C;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	font-weight: 600;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.inputcontainer input {
+	padding: 8px;
+	/* border: 1px solid #31572c;
+  border-radius: 10px; */
+	border: none;
+	border-bottom: 1px solid #31572C;
+}
+
+.inputcontainer select {
+	padding: 8px;
+	border: none;
+	border-bottom: 1px solid #31572C;
+}
+
+.containerone {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 2rem;
+}
+
+.inputcontainertwo label {
+	/* color: #90A955;
+  display: flex;
+  align-items: center; */
+	color: #31572C;
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	font-weight: 600;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.inputcontainertwo textarea {
+	/* padding: 8px;
+  border: 1px solid #31572c;
+  border-radius: 10px; */
+	padding: 8px;
+	border: none;
+	width: 80vw;
+	border-bottom: 1px solid #31572C;
+}
+
+.containerthree {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	column-gap: 3rem;
+}
+
+h2 {
+	background: linear-gradient(90deg, rgba(49, 87, 44, 1) 0%,
+		rgba(144, 169, 85, 1) 30%, rgba(236, 243, 158, 1) 100%);
+	color: white;
+	text-align: start;
+}
+</style>
+
+
+
+
+
+
+
+</head>
+<body>
+	<nav>
+		<img
+			src="data:image/png;base64,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"
+			alt="Logo" width="80" height="40" />
+		<ul>
+			<li><a href="#services">Dashboard</a></li>
+			<li><a href="#services">Status</a></li>
+			<li><a href="#home">Rent Agreement</a></li>
+			<li><a href="#services">Housing Loan Agreement</a></li>
+			<li><a href="#about">Car Loan</a></li>
+			<li><a href="#services">Escrow Agreement</a></li>
+			<li><a href="#contact">Personal Loan Agreement</a></li>
+			<li><a href="#services">Tri Party</a></li>
+			<li><a href="#services">Settings</a></li>
+			<li><a href="#services">Home</a></li>
+			<!-- <li><a href="#services">Logout</a></li> -->
+		</ul>
+	</nav>
+
+	<main>
+	
+		<form id="carloanform" method="POST" action="/accord/car-loan-application"   >
+		
+		
+		<section class="maincontainer">
+			<!-- 
+        <span style="display: grid; justify-content: center;">
+            <p>CAR LOAN</p>
+        </span> -->
+	
+
+			<div class="customerdet">
+				<div>
+					<h2
+						style="color: white; background-color: linear-gradient(90deg, rgba(49, 87, 44, 1) 0%, rgba(144, 169, 85, 1) 30%, rgba(236, 243, 158, 1) 100%); padding: 10px; text-align: start;">Customer
+						Details</h2>
+				</div>
+
+				<div>
+					
+						<div class="containerone">
+							<div class="inputcontainer">
+								<label>FIRST NAME</label> <input type="text" name="lenderfirstname" id="lenderfirstname" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>MIDDLE NAME</label> <input type="text" name="lendermiddlename" id="lendermiddlename" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>LAST NAME</label> <input type="text" name="lenderlastname" id="lenderlastname" />
+							</div>
+						</div>
+
+						<div class="containerone">
+							<div class="inputcontainer">
+								<label>GENDER</label> <select>
+									<option>SELECT</option>
+									<option>MALE</option>
+									<option>FEMALE</option>
+								</select>
+
+							</div>
+
+							<div class="inputcontainer">
+								<label>PHONE NO.</label> <input type="text" name="phone" id="phone" maxlength="10" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>EMAIL</label> <input type="text" name="lenderemail" id="lenderemail" />
+							</div>
+						</div>
+
+						<div class="containerthree">
+							<div class="inputcontainertwo"
+								style="display: flex; column-gap: 5rem">
+								<label>ADDRESS</label>
+								<textarea name="address" id="address"></textarea>
+							</div>
+						</div>
+
+						<div class="containerone">
+							<div class="inputcontainer">
+								<label>STATE</label> <input type="text" name="state" id="state" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>CITY</label> <input type="text" name="city" id="city" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>PINCODE</label> <input type="text" name="pincode" id="pincode" />
+							</div>
+						</div>
+					
+				</div>
+			</div>
+
+			<div class="bankdet">
+				<div>
+					<h2
+						style="color: white; background-color: linear-gradient(90deg, rgba(49, 87, 44, 1) 0%, rgba(144, 169, 85, 1) 30%, rgba(236, 243, 158, 1) 100%); padding: 10px; text-align: start;">Bank
+						Details</h2>
+				</div>
+
+				<div>
+					
+						<div class="containerthree">
+							<div class="inputcontainer"
+								style="display: grid; grid-template-columns: 8rem 1fr;">
+								<label>BANK NAME</label> <input type="text" name="bankname" id="bankname" />
+							</div>
+
+							<div class="inputcontainer"
+								style="display: grid; grid-template-columns: 8rem 1fr;">
+								<label>ACCOUNT NO</label> <input type="text" name="accountno" id="accountno" maxlength="13" />
+							</div>
+						</div>
+					
+				</div>
+			</div>
+
+			<div class="loandet">
+				<div>
+					<h2
+						style="color: white; background-color: linear-gradient(90deg, rgba(49, 87, 44, 1) 0%, rgba(144, 169, 85, 1) 30%, rgba(236, 243, 158, 1) 100%); padding: 10px; text-align: start;">Loan
+						Details</h2>
+				</div>
+
+				<div>
+				
+						<div class="containerone">
+							<div class="inputcontainer">
+								<label>LOAN CATEGORY</label> <input type="text" name="loancategory" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>LOAN AMOUNT</label> <input type="text" name="loanamount" id="loanamount" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>LOAN INTEREST</label> <input type="text" name="loaninterest" id="loaninterest" />
+							</div>
+						</div>
+
+						<div class="containerone">
+							<div class="inputcontainer">
+								<label>LOAN DURATION</label> <input type="text" name="loanduration" id="loanduration" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>LOAN PURPOSE</label> <input type="text" name="loanpurpose" id="loanpurpose" />
+							</div>
+
+							<div class="inputcontainer">
+								<label>LOAN PROPOSAL DATE</label> <input type="text" name="loanproposaldate" id="loanproposaldate" />
+							</div>
+						</div>
+					
+				</div>
+			</div>
+			
+			
+		</section>
+
+		<section style="padding: 1rem">
+			<div class="buttoncontainer">
+				<button type="button" onclick="fetchAndOpenPDF()" >View</button>
+				<button type="submit">Submit</button>
+			</div>
+		</section>
+		
+		</form>
+	</main>
+	
+	
+		<script>
+  
+  
+  function fetchAndOpenPDF() {
+	
+	  const formData = new FormData(carloanform);
+		
+	 
+	    fetch('http://localhost:8080/api/viewcarloanPdf', {
+	        method: 'POST',
+	        body: formData,
+	    })
+	    .then(response => response.blob())
+	    .then(blob => {
+	        const pdfUrl = URL.createObjectURL(blob);
+	        window.open(pdfUrl, '_blank');
+	        URL.revokeObjectURL(pdfUrl);
+	    })
+	    .catch(error => {
+	        console.error('Error fetching PDF:', error);
+	    });
+	}
+
+  
+  
+  
+  </script>
+	
+	
+</body>
+</html>
