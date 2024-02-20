@@ -38,8 +38,18 @@ public class PdfController {
 
 	@GetMapping("/login")
 	public String showIndex() {
-		return "smartContract.html";
+		return "carloan.html";
+		/* return "templateupload.html"; */
 	}
+	
+	
+	
+	@GetMapping("/templateupload")
+	public String templateupload() {
+		return "templateupload.html";
+	}
+	
+	
 
 	@PostMapping("/generatePdf")
 	public ResponseEntity<?> generatePdf(@RequestParam Map<String, String> map) throws IOException {

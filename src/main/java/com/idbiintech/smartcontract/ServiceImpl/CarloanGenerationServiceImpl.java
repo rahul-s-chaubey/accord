@@ -1,4 +1,4 @@
-package com.idbiintech.smartcontract.controller;
+package com.idbiintech.smartcontract.ServiceImpl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,48 +6,33 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Service;
 
 import com.idbiintech.smartcontract.DTO.CarloanDTO;
-import com.idbiintech.smartcontract.ServiceImpl.CarloanServiceImpl;
 
 import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
 import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 
-@CrossOrigin
-@Controller 
-@RequestMapping("/api")
-public class CartestController {
+
+
+@Service
+public class CarloanGenerationServiceImpl {
+
 	
-	@Autowired
-	CarloanServiceImpl CarloanServiceImpl;
-
-	@PostMapping("/viewcarloanPdf")
-	public ResponseEntity<?> viewcarloanagreement(CarloanDTO carloandto) throws IOException {
-
-		String docxPath = "C:\\test\\carloan.docx";
-		String modifiedDocxPath = "C:\\test\\test1.docx";
+	public static void updateDocument(CarloanDTO carloandto) throws IOException {
+		
+		String input = "C:\\test\\carloan.docx";
+		String output  = "C:\\test\\test1.docx";
 		String pdfPath = "C:\\test\\test.pdf";
-
+		
+		
 		String carmake = carloandto.getCarmake();
 		String carmodel = carloandto.getCarmodel();
 		String carcolor = carloandto.getCarcolor();
@@ -60,32 +45,12 @@ public class CartestController {
 		String lenderlastname = "rahul";
 		
 		String lendername = "fghj";
-
 		
-
 		
-		Resource resource = null;
-
-		try {
-
-			updateDocument(docxPath, modifiedDocxPath, carmake, carmodel, carcolor,loanamt,borrowername,borroweremail,lendername,lenderemail);
-			ConvertToPDF(modifiedDocxPath, pdfPath);
-
-			Path path = Paths.get(pdfPath);
-			resource = new UrlResource(path.toUri());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-
-		return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF)
-				.header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\\\"\" + resource.getFilename() + \"\\\"")
-				.body(resource);
-
-	}
-
-	static private void updateDocument(String input, String output, String carmake, String carmodel, String carcolor, String loanamt,String borrowername,String borroweremail,String lendername,String lenderemail)
-			throws IOException {
-
+		
+		
+		System.out.println("Here");
+		
 		try (XWPFDocument doc = new XWPFDocument(Files.newInputStream(Paths.get(input)))) {
 
 			List<XWPFParagraph> xwpfParagraphList = doc.getParagraphs();
@@ -96,6 +61,7 @@ public class CartestController {
 					String docText = xwpfRun.getText(0);
 					// replacement and setting position
 
+					docText = docText.replace("${carmake}", carloandto.getCarmake());
 					docText = docText.replace("${carmake}", carmake);
 
 					docText = docText.replace("${carmodel}", carmodel);
@@ -106,7 +72,7 @@ public class CartestController {
 					docText = docText.replace("${borroweremail}", borroweremail);
 					docText = docText.replace("${lendername}", lendername);
 					docText = docText.replace("${lenderemail}", lenderemail);
-
+					
 					xwpfRun.setText(docText, 0);
 				}
 			}
@@ -117,10 +83,16 @@ public class CartestController {
 			}
 
 		}
-
+		
+		
 	}
 
+	
+	
 	public static void ConvertToPDF(String docPath, String pdfPath) {
+		
+		System.out.println("here too");
+		
 		try {
 			InputStream docFile = new FileInputStream(new File(docPath));
 			XWPFDocument doc = new XWPFDocument(docFile);
@@ -135,5 +107,8 @@ public class CartestController {
 			System.out.println(ex.getMessage());
 		}
 	}
+	
+	
+		
 
 }

@@ -64,6 +64,10 @@ public class CarloanServices implements CarloanServiceImpl {
 			  
 			  LoanDetailRepository.save(loandetails);
 			  
+			  
+			  
+			  
+			  
 			  	responseDTO = new ResponseDTO();
 				responseDTO.setMessage("Data saved sucessfully");
 			  
