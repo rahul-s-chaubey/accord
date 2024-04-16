@@ -10,7 +10,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.idbiintech.smartcontract.DTO.CarloanDTO;
-import com.idbiintech.smartcontract.DTO.EmailDetails;
 import com.idbiintech.smartcontract.DTO.ResponseDTO;
 import com.idbiintech.smartcontract.Service.MailService;
 

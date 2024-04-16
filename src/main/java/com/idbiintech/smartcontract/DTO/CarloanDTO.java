@@ -1,5 +1,7 @@
 package com.idbiintech.smartcontract.DTO;
 
+import java.util.HashMap;
+
 import jakarta.validation.constraints.NotNull;
 
 public class CarloanDTO {
@@ -50,6 +52,10 @@ public class CarloanDTO {
 	private String loanpurpose;
 	@NotNull(message = "loanproposaldate may not be null")
 	private String loanproposaldate;
+	
+	private HashMap<String, String>inputMap = new HashMap<String, String>();
+
+	private String smartcontracturul;
 
 	public String getCarmake() {
 		return carmake;
@@ -234,5 +240,24 @@ public class CarloanDTO {
 	public void setLoanproposaldate(String loanproposaldate) {
 		this.loanproposaldate = loanproposaldate;
 	}
+
+	public HashMap<String, String> getInputMap() {
+		return inputMap;
+	}
+
+	public void setInputMap(HashMap<String, String> inputMap) {
+		this.inputMap = inputMap;
+	}
+
+	public String getSmartcontracturul() {
+		return smartcontracturul;
+	}
+
+	public void setSmartcontracturul(String smartcontracturul) {
+		this.smartcontracturul = smartcontracturul;
+	}
+	
+	
+	
 
 }

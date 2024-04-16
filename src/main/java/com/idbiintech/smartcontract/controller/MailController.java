@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idbiintech.smartcontract.DTO.EmailDetails;
-import com.idbiintech.smartcontract.DTO.ResponseDTO;
 import com.idbiintech.smartcontract.Service.MailService;
 
 @RestController

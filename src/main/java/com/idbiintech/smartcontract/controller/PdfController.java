@@ -46,7 +46,7 @@ public class PdfController {
 	
 	@GetMapping("/templateupload")
 	public String templateupload() {
-		return "templateupload.html";
+		return "template.html";
 	}
 	
 	

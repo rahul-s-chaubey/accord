@@ -34,10 +34,10 @@ import fr.opensagres.poi.xwpf.converter.pdf.PdfConverter;
 import fr.opensagres.poi.xwpf.converter.pdf.PdfOptions;
 
 @CrossOrigin
-@Controller 
+@Controller
 @RequestMapping("/api")
 public class CartestController {
-	
+
 	@Autowired
 	CarloanServiceImpl CarloanServiceImpl;
 
@@ -58,17 +58,20 @@ public class CartestController {
 		String lenderfirstname = "rahul";
 		String lendermiddlename = "rahul";
 		String lenderlastname = "rahul";
-		
+
 		String lendername = "fghj";
 
-		
+		String smartcontracturul = carloandto.getSmartcontracturul();
+		System.out.println(smartcontracturul);
 
-		
 		Resource resource = null;
 
 		try {
 
-			updateDocument(docxPath, modifiedDocxPath, carmake, carmodel, carcolor,loanamt,borrowername,borroweremail,lendername,lenderemail);
+
+			updateDocument(docxPath, modifiedDocxPath, carmake, carmodel, carcolor, loanamt, borrowername,
+					borroweremail, lendername, lenderemail, smartcontracturul);
+
 			ConvertToPDF(modifiedDocxPath, pdfPath);
 
 			Path path = Paths.get(pdfPath);
@@ -83,42 +86,63 @@ public class CartestController {
 
 	}
 
-	static private void updateDocument(String input, String output, String carmake, String carmodel, String carcolor, String loanamt,String borrowername,String borroweremail,String lendername,String lenderemail)
-			throws IOException {
+		
+	
+	private void updateDocument(String input, String output, String carmake, String carmodel, String carcolor,
+	        String loanamt, String borrowername, String borroweremail, String lendername, String lenderemail,
+	        String smartcontracturul) throws IOException {
 
-		try (XWPFDocument doc = new XWPFDocument(Files.newInputStream(Paths.get(input)))) {
+	    System.out.println("ankita : " + carmake); // Ensure that carmake value is correct
 
-			List<XWPFParagraph> xwpfParagraphList = doc.getParagraphs();
-			// Iterate over paragraph list and check for the replaceable text in each
-			// paragraph
-			for (XWPFParagraph xwpfParagraph : xwpfParagraphList) {
-				for (XWPFRun xwpfRun : xwpfParagraph.getRuns()) {
-					String docText = xwpfRun.getText(0);
-					// replacement and setting position
+	    try (XWPFDocument doc = new XWPFDocument(Files.newInputStream(Paths.get(input)))) {
+	        List<XWPFParagraph> xwpfParagraphList = doc.getParagraphs();
 
-					docText = docText.replace("${carmake}", carmake);
+	        // Iterate over each paragraph
+	        for (XWPFParagraph xwpfParagraph : xwpfParagraphList) {
+	            StringBuilder paragraphText = new StringBuilder();
+	            List<XWPFRun> xwpfRuns = xwpfParagraph.getRuns();
 
-					docText = docText.replace("${carmodel}", carmodel);
+	            // Iterate over each run in the paragraph
+	            for (XWPFRun xwpfRun : xwpfRuns) {
+	                paragraphText.append(xwpfRun.getText(0));
+	            }
 
-					docText = docText.replace("${carcolor}", carcolor);
-					docText = docText.replace("${loanamt}", loanamt);
-					docText = docText.replace("${borrowername}", borrowername);
-					docText = docText.replace("${borroweremail}", borroweremail);
-					docText = docText.replace("${lendername}", lendername);
-					docText = docText.replace("${lenderemail}", lenderemail);
+	            String docText = paragraphText.toString();
 
-					xwpfRun.setText(docText, 0);
-				}
-			}
+	            // Replace placeholders with actual values
+	            docText = docText.replace("${carmake}", carmake);
+	            docText = docText.replace("${carmodel}", carmodel);
+	            docText = docText.replace("${carcolor}", carcolor);
+	            docText = docText.replace("${loanamt}", loanamt);
+	            docText = docText.replace("${borrowername}", borrowername);
+	            docText = docText.replace("${borroweremail}", borroweremail);
+	            docText = docText.replace("${lendername}", lendername);
+	            docText = docText.replace("${lenderemail}", lenderemail);
+	            docText = docText.replace("${smartcontracturul}", smartcontracturul);
 
-			// save the docs
-			try (FileOutputStream out = new FileOutputStream(output)) {
-				doc.write(out);
-			}
+	            // Set the updated text in the paragraph
+	            xwpfParagraph.getRuns().forEach(run -> run.setText("", 0));
+	            xwpfParagraph.createRun().setText(docText);
+	        }
 
-		}
+	        // Save the updated document
+	        try (FileOutputStream out = new FileOutputStream(output)) {
+	            doc.write(out);
+	        }
 
+	    } catch (IOException e) {
+	        // Handle IOException
+	        e.printStackTrace();
+	    }
 	}
+
+	
+	
+	
+	
+	
+	
+	
 
 	public static void ConvertToPDF(String docPath, String pdfPath) {
 		try {

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>File Upload</title>
+
+<link rel="stylesheet" href="assets/css/templateupload.html"  />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+
+<style type="text/css">
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+  body {
+      border-bottom: 0px solid black;
+      height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background: #9AB15D;
+    }
+    
+    header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: var(--transparent-background);
+    padding: 0 1rem 1rem 1rem;
+     margin: 1rem 2rem 0rem 0rem;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index: 100;
+}
+
+header figure {
+    height: 3rem;
+    justify-self: flex-start;
+}
+
+
+    /* === Wrapper Styles === */
+    #FileUpload {
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper {
+      margin: 30px;
+      padding: 1rem;
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3),
+        0 15px 12px rgba(0, 0, 0, 0.22);
+      border-radius: 10px;
+      background-color: white;
+      width: 415px;
+      z-index: 1;
+    }
+
+    .inputcontainer {
+      display: grid;
+      row-gap: 1rem;
+      padding: 1rem;
+    }
+
+    .buttoncontainer {
+      display: inherit;
+      row-gap: 10px;
+    }
+
+    .buttoncontainer button {
+      padding: 8px;
+      font-size: 1rem;
+      color: white;
+      border: none;
+      background-color: #31572c;
+    }
+
+    /* file upload  */
+
+    .uploadfiles {
+      margin: 10px 0;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 3px dotted #9AB15D;
+      border-radius: 5px;
+    }
+
+    .uploadfiles p {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #9AB15D;
+    }
+
+    #FileUpload {
+      /* width: 300px;
+      height: 300px; */
+      padding: 1rem;
+      position: absolute;
+      left: 42%;
+      top: 35%;
+      margin-left: -150px;
+      margin-top: -150px;
+    }
+
+  
+
+    .btn{
+      text-decoration: none;
+  background-color: white;
+  color: #31572c;
+  padding: 10px 20px;
+  border: 1px solid #31572c;
+  outline: none;
+  font-size: 10px;
+  font-weight: 800;
+  transition: 0.3s;
+    }
+    
+    
+
+</style>
+
+
+
+
+</head>
+
+
+<body>
+	<!-- === File Upload 
+-->
+
+
+
+	<!-- <header id="logo">
+		<figure>
+			<img src="assets/images/IDBI_Intech_Logo.jpg"
+				style="height: 100%; width: 100%; object-fit: contain;" alt="" />
+		</figure>
+		
+	</header> -->
+
+	
+
+	<div id="FileUpload">
+		<div class="wrapper">
+			<h1
+				style="padding: 1rem; display: flex; justify-content: center; color: #31572c;">
+				FILE UPLOAD</h1>
+
+			<div class="inputcontainer">
+
+				<div class="uploadfiles">
+					<h4 style="color: #406432;">Select Files Here</h4>
+					<p>Files Supported: EXCEL,TEXT,PDF,JPEG</p>
+					<!-- <input type="file" /> -->
+					<input type="file" 
+						id="fileID" name="file" style="display: none;">
+					<button class="btn" id="btn">Choose File</button>
+				</div>
+				<div class="buttoncontainer">
+					<button type="button" id="submitButton" >Upload</button>
+					<button type="button" onclick="fetchAndOpenPDF()" >View</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+    
+    const realfilebtn = document.getElementById("fileID");
+    const custmbtn = document.getElementById("btn");
+
+
+    custmbtn.addEventListener("click", function(){
+      realfilebtn.click();
+    })
+    
+    
+    
+    
+
+    
+    
+    </script>
+
+<script>
+
+document.getElementById('submitButton').addEventListener('click', async function() {
+	
+
+
+    var url = '';
+    const fileInput = document.getElementById('fileID');
+    
+    const selectedFile = fileInput.files[0];
+
+    if (!selectedFile) {
+        alert('Please select a file.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    
+    
+    
+	 url = 'http://localhost:8080/api/temp';
+    
+
+    if (url !== '') {
+        let response = await fetch(url, {
+            method: 'POST',
+            
+            body:formData
+        })
+     
+    	
+        if (response.ok) {
+            alert('File Selected Sucessfully');
+        }
+
+    }
+    
+
+    
+});
+
+
+
+</script>
+
+
+		<script>
+  
+  
+  function fetchAndOpenPDF() {
+	  
+	  
+	  const fileInput = document.getElementById('fileID');
+	    
+	    const selectedFile = fileInput.files[0].name;
+	    
+	    console.log(selectedFile);
+	
+	    
+	    
+	// Make a GET request to your API endpoint that returns the PDF file
+	  fetch(`http://localhost:8080/api/viewtemplate?fileName=${selectedFile}`)
+	    .then(response => response.blob())
+	    .then(blob => {
+	      // Create a Blob URL for the PDF
+	      const pdfUrl = URL.createObjectURL(blob);
+
+	      // Open the PDF in a new tab
+	      window.open(pdfUrl, '_blank');
+	    })
+	    .catch(error => {
+	      // Handle errors
+	      console.error('Error:', error);
+	    });
+
+	  
+  }
+  
+  
+  </script>
+	
+
+
+
+	
+
+
+</body>
+</html>

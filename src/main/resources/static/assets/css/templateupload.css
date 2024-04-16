@@ -1,0 +1,118 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+  body {
+      border-bottom: 0px solid black;
+      height: 450px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    
+    header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: var(--transparent-background);
+    padding: 0 1rem 1rem 1rem;
+     margin: 1rem 2rem 0rem 0rem;
+    display: flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index: 100;
+}
+
+header figure {
+    height: 3rem;
+    justify-self: flex-start;
+}
+
+
+    /* === Wrapper Styles === */
+    #FileUpload {
+      display: flex;
+      justify-content: center;
+    }
+    .wrapper {
+      margin: 30px;
+      padding: 1rem;
+      box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3),
+        0 15px 12px rgba(0, 0, 0, 0.22);
+      border-radius: 10px;
+      background-color: white;
+      width: 415px;
+      z-index: 1;
+    }
+
+    .inputcontainer {
+      display: grid;
+      row-gap: 1rem;
+      padding: 1rem;
+    }
+
+    .buttoncontainer {
+      display: inherit;
+      row-gap: 10px;
+    }
+
+    .buttoncontainer button {
+      padding: 8px;
+      font-size: 1rem;
+      color: white;
+      border: none;
+      background-color: #31572c;
+    }
+
+    /* file upload  */
+
+    .uploadfiles {
+      margin: 10px 0;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border: 3px dotted #9AB15D;
+      border-radius: 5px;
+    }
+
+    .uploadfiles p {
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      color: #9AB15D;
+    }
+
+    #FileUpload {
+      /* width: 300px;
+      height: 300px; */
+      padding: 1rem;
+      position: absolute;
+      left: 42%;
+      top: 35%;
+      margin-left: -150px;
+      margin-top: -150px;
+    }
+
+  
+
+    .btn{
+      text-decoration: none;
+  background-color: white;
+  color: #31572c;
+  padding: 10px 20px;
+  border: 1px solid #31572c;
+  outline: none;
+  font-size: 10px;
+  font-weight: 800;
+  transition: 0.3s;
+    }
+    
+    
